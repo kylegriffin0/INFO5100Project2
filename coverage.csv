@@ -1,0 +1,249 @@
+Country,Coverage,Code,,Lookup,
+Afghanistan,34,AFG,,Afghanistan,AFG
+Albania,62,ALB,,Albania,ALB
+Algeria,76,DZA,,Algeria,DZA
+Angola,36,AGO,,American Samoa,ASM
+Antigua and Barbuda,75,ATG,,Andorra,AND
+Argentina,76,ARG,,Angola,AGO
+Armenia,67,ARM,,Anguilla,AIA
+Australia,100,AUS,,Antarctica,ATA
+Austria,100,AUT,,Antigua and Barbuda,ATG
+Azerbaijan,64,AZE,,Argentina,ARG
+Bahamas,72,BHS,,Armenia,ARM
+Bahrain,72,BHR,,Aruba,ABW
+Bangladesh,46,BGD,,Australia,AUS
+Barbados,79,BRB,,Austria,AUT
+Belarus,74,BLR,,Azerbaijan,AZE
+Belgium,100,BEL,,Bahamas,BHS
+Belize,61,BLZ,,Bahrain,BHR
+Benin,41,BEN,,Bangladesh,BGD
+Bhutan,59,BTN,,Barbados,BRB
+Bolivia (Plurinational State of),60,BOL,,Belarus,BLR
+Bosnia and Herzegovina,57,BIH,,Belgium,BEL
+Botswana,60,BWA,,Belize,BLZ
+Brazil,77,BRA,,Benin,BEN
+Brunei Darussalam,100,BRN,,Bermuda,BMU
+Bulgaria,64,BGR,,Bhutan,BTN
+Burkina Faso,39,BFA,,Bolivia (Plurinational State of),BOL
+Burundi,43,BDI,,Bonaire,BES
+Cabo Verde,62,CPV,,Bosnia and Herzegovina,BIH
+Cambodia,55,KHM,,Botswana,BWA
+Cameroon,44,CMR,,Bouvet Island,BVT
+Canada,100,CAN,,Brazil,BRA
+Central African Republic,33,CAF,,British Indian Ocean Territory,IOT
+Chad,29,TCD,,British Virgin Islands,VGB
+Chile,70,CHL,,Brunei Darussalam,BRN
+China,76,CHN,,Bulgaria,BGR
+Colombia,76,COL,,Burkina Faso,BFA
+Comoros,47,COM,,Burundi,BDI
+Congo,38,COG,,Cabo Verde,CPV
+Costa Rica,75,CRI,,Cambodia,KHM
+Cote d'Ivoire,44,CIV,,Cameroon,CMR
+Croatia,69,HRV,,Canada,CAN
+Cuba,78,CUB,,Cayman Islands,CYM
+Cyprus,73,CYP,,Central African Republic,CAF
+Czechia,73,CZE,,Chad,TCD
+Democratic People's Republic of Korea,68,PRK,,Chile,CHL
+Democratic Republic of the Congo,40,COD,,China,CHN
+Denmark,100,DNK,,Christmas Island,CXR
+Djibouti,47,DJI,,Cocos (Keeling) Islands,CCK
+Dominican Republic,74,DOM,,Colombia,COL
+Ecuador,75,ECU,,Comoros,COM
+Egypt,68,EGY,,Congo,COG
+El Salvador,77,SLV,,Cook Islands,COK
+Equatorial Guinea,45,GNQ,,Costa Rica,CRI
+Eritrea,38,ERI,,Cote d'Ivoire,CIV
+Estonia,76,EST,,Croatia,HRV
+Ethiopia,39,ETH,,Cuba,CUB
+Fiji,66,FJI,,Curacao,CUW
+Finland,79,FIN,,Cyprus,CYP
+France,100,FRA,,Czechia,CZE
+Gabon,52,GAB,,Democratic People's Republic of Korea,PRK
+Gambia,46,GMB,,Democratic Republic of the Congo,COD
+Georgia,66,GEO,,Denmark,DNK
+Germany,79,DEU,,Djibouti,DJI
+Ghana,45,GHA,,Dominica,DMA
+Greece,70,GRC,,Dominican Republic,DOM
+Grenada,72,GRD,,Ecuador,ECU
+Guatemala,57,GTM,,Egypt,EGY
+Guinea,35,GIN,,El Salvador,SLV
+Guinea-Bissau,39,GNB,,Equatorial Guinea,GNQ
+Guyana,68,GUY,,Eritrea,ERI
+Haiti,47,HTI,,Estonia,EST
+Honduras,64,HND,,Ethiopia,ETH
+Hungary,70,HUN,,Falkland Islands (Malvinas),FLK
+Iceland,100,ISL,,Faroe Islands,FRO
+India,56,IND,,Fiji,FJI
+Indonesia,49,IDN,,Finland,FIN
+Iran (Islamic Republic of),65,IRN,,France,FRA
+Iraq,63,IRQ,,French Guiana,GUF
+Ireland,78,IRL,,French Polynesia,PYF
+Israel,100,ISR,,French Southern Territories,ATF
+Italy,100,ITA,,Gabon,GAB
+Jamaica,60,JAM,,Gambia,GMB
+Japan,100,JPN,,Georgia,GEO
+Jordan,70,JOR,,Germany,DEU
+Kazakhstan,71,KAZ,,Ghana,GHA
+Kenya,57,KEN,,Gibraltar,GIB
+Kiribati,40,KIR,,Greece,GRC
+Kuwait,77,KWT,,Greenland,GRL
+Kyrgyzstan,66,KGZ,,Grenada,GRD
+Lao People's Democratic Republic,48,LAO,,Guadeloupe,GLP
+Latvia,64,LVA,,Guam,GUM
+Lebanon,68,LBN,,Guatemala,GTM
+Lesotho,45,LSO,,Guernsey,GGY
+Liberia,34,LBR,,Guinea,GIN
+Libya,63,LBY,,Guinea-Bissau,GNB
+Lithuania,67,LTU,,Guyana,GUY
+Luxembourg,100,LUX,,Haiti,HTI
+Madagascar,30,MDG,,Heard Island and McDonald Mcdonald Islands,HMD
+Malawi,44,MWI,,Holy See (Vatican City State),VAT
+Malaysia,70,MYS,,Honduras,HND
+Maldives,55,MDV,,Hong Kong,HKG
+Mali,32,MLI,,Hungary,HUN
+Malta,79,MLT,,Iceland,ISL
+Mauritania,33,MRT,,India,IND
+Mauritius,64,MUS,,Indonesia,IDN
+Mexico,76,MEX,,Iran (Islamic Republic of),IRN
+Micronesia (Federated States of),60,FSM,,Iraq,IRQ
+Mongolia,63,MNG,,Ireland,IRL
+Montenegro,54,MNE,,Isle of Man,IMN
+Morocco,65,MAR,,Israel,ISR
+Mozambique,42,MOZ,,Italy,ITA
+Myanmar,60,MMR,,Jamaica,JAM
+Namibia,59,NAM,,Japan,JPN
+Nepal,46,NPL,,Jersey,JEY
+Netherlands,100,NLD,,Jordan,JOR
+New Zealand,100,NZL,,Kazakhstan,KAZ
+Nicaragua,70,NIC,,Kenya,KEN
+Niger,33,NER,,Kiribati,KIR
+Nigeria,39,NGA,,Kuwait,KWT
+Norway,100,NOR,,Kyrgyzstan,KGZ
+Oman,72,OMN,,Lao People's Democratic Republic,LAO
+Pakistan,40,PAK,,Latvia,LVA
+Panama,75,PAN,,Lebanon,LBN
+Papua New Guinea,41,PNG,,Lesotho,LSO
+Paraguay,69,PRY,,Liberia,LBR
+Peru,78,PER,,Libya,LBY
+Philippines,58,PHL,,Liechtenstein,LIE
+Poland,75,POL,,Lithuania,LTU
+Portugal,100,PRT,,Luxembourg,LUX
+Qatar,77,QAT,,Macao,MAC
+Republic of Korea,100,KOR,,Madagascar,MDG
+Republic of Moldova,65,MDA,,Malawi,MWI
+Romania,72,ROU,,Malaysia,MYS
+Russian Federation,63,RUS,,Maldives,MDV
+Rwanda,53,RWA,,Mali,MLI
+Saint Lucia,69,LCA,,Malta,MLT
+Saint Vincent and the Grenadines,65,VCT,,Marshall Islands,MHL
+Samoa,56,WSM,,Martinique,MTQ
+Sao Tome and Principe,54,STP,,Mauritania,MRT
+Saudi Arabia,68,SAU,,Mauritius,MUS
+Senegal,41,SEN,,Mayotte,MYT
+Serbia,65,SRB,,Mexico,MEX
+Seychelles,68,SYC,,Micronesia (Federated States of),FSM
+Sierra Leone,36,SLE,,Monaco,MCO
+Singapore,100,SGP,,Mongolia,MNG
+Slovakia,76,SVK,,Montenegro,MNE
+Slovenia,78,SVN,,Montserrat,MSR
+Solomon Islands,50,SLB,,Morocco,MAR
+Somalia,22,SOM,,Mozambique,MOZ
+South Africa,67,ZAF,,Myanmar,MMR
+South Sudan,30,SSD,,Namibia,NAM
+Spain,77,ESP,,Nauru,NRU
+Sri Lanka,62,LKA,,Nepal,NPL
+Sudan,43,SDN,,Netherlands,NLD
+Suriname,68,SUR,,New Caledonia,NCL
+Swaziland,58,SWZ,,New Zealand,NZL
+Sweden,100,SWE,,Nicaragua,NIC
+Switzerland,100,CHE,,Niger,NER
+Syrian Arab Republic,60,SYR,,Nigeria,NGA
+Tajikistan,65,TJK,,Niue,NIU
+Thailand,75,THA,,Norfolk Island,NFK
+The former Yugoslav republic of Macedonia,70,MKD,,Northern Mariana Islands,MNP
+Timor-Leste,47,TLS,,Norway,NOR
+Togo,42,TGO,,Oman,OMN
+Tonga,62,TON,,Pakistan,PAK
+Trinidad and Tobago,75,TTO,,Palau,PLW
+Tunisia,65,TUN,,"Palestine, State of",PSE
+Turkey,71,TUR,,Panama,PAN
+Turkmenistan,67,TKM,,Papua New Guinea,PNG
+Uganda,44,UGA,,Paraguay,PRY
+Ukraine,63,UKR,,Peru,PER
+United Arab Emirates,63,ARE,,Philippines,PHL
+United Kingdom of Great Britain and Northern Ireland,100,GBR,,Pitcairn,PCN
+United Republic of Tanzania,39,TZA,,Poland,POL
+United States of America,100,USA,,Portugal,PRT
+Uruguay,79,URY,,Puerto Rico,PRI
+Uzbekistan,72,UZB,,Qatar,QAT
+Vanuatu,56,VUT,,Republic of Korea,KOR
+Venezuela (Bolivarian Republic of),73,VEN,,Republic of Moldova,MDA
+Viet Nam,73,VNM,,Reunion,REU
+Yemen,39,YEM,,Romania,ROU
+Zambia,56,ZMB,,Russian Federation,RUS
+Zimbabwe,55,ZWE,,Rwanda,RWA
+,,,,Saint Barthelemy,BLM
+,,,,Saint Helena,SHN
+,,,,Saint Kitts and Nevis,KNA
+,,,,Saint Lucia,LCA
+,,,,Saint Martin (French part),MAF
+,,,,Saint Pierre and Miquelon,SPM
+,,,,Saint Vincent and the Grenadines,VCT
+,,,,Samoa,WSM
+,,,,San Marino,SMR
+,,,,Sao Tome and Principe,STP
+,,,,Saudi Arabia,SAU
+,,,,Senegal,SEN
+,,,,Serbia,SRB
+,,,,Seychelles,SYC
+,,,,Sierra Leone,SLE
+,,,,Singapore,SGP
+,,,,Sint Maarten (Dutch part),SXM
+,,,,Slovakia,SVK
+,,,,Slovenia,SVN
+,,,,Solomon Islands,SLB
+,,,,Somalia,SOM
+,,,,South Africa,ZAF
+,,,,South Georgia and the South Sandwich Islands,SGS
+,,,,South Sudan,SSD
+,,,,Spain,ESP
+,,,,Sri Lanka,LKA
+,,,,Sudan,SDN
+,,,,Suriname,SUR
+,,,,Svalbard and Jan Mayen,SJM
+,,,,Swaziland,SWZ
+,,,,Sweden,SWE
+,,,,Switzerland,CHE
+,,,,Syrian Arab Republic,SYR
+,,,,"Taiwan, Province of China",TWN
+,,,,Tajikistan,TJK
+,,,,Thailand,THA
+,,,,The former Yugoslav republic of Macedonia,MKD
+,,,,Timor-Leste,TLS
+,,,,Togo,TGO
+,,,,Tokelau,TKL
+,,,,Tonga,TON
+,,,,Trinidad and Tobago,TTO
+,,,,Tunisia,TUN
+,,,,Turkey,TUR
+,,,,Turkmenistan,TKM
+,,,,Turks and Caicos Islands,TCA
+,,,,Tuvalu,TUV
+,,,,Uganda,UGA
+,,,,Ukraine,UKR
+,,,,United Arab Emirates,ARE
+,,,,United Kingdom of Great Britain and Northern Ireland,GBR
+,,,,United Republic of Tanzania,TZA
+,,,,United States Minor Outlying Islands,UMI
+,,,,United States of America,USA
+,,,,Uruguay,URY
+,,,,US Virgin Islands,VIR
+,,,,Uzbekistan,UZB
+,,,,Vanuatu,VUT
+,,,,Venezuela (Bolivarian Republic of),VEN
+,,,,Viet Nam,VNM
+,,,,Wallis and Futuna,WLF
+,,,,Western Sahara,ESH
+,,,,Yemen,YEM
+,,,,Zambia,ZMB
+,,,,Zimbabwe,ZWE

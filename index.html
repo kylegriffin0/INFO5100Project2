@@ -1,0 +1,58 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="/datamaps.world.min.js"></script>
+<div id="container" style="position: relative; width: 500px; height: 300px;"></div>
+<!-- <script>
+    var map = new Datamap({element: document.getElementById('container')});
+</script>
+ -->
+<script>
+	var palegreen = d3.rgb(66,251,75);
+	var darkgreen = d3.rgb(2,100,7);
+	var color = d3.interpolate(palegreen,darkgreen);
+	var linear = d3.scale.linear().domain([30, 100]).range([0, 1]); // color(linear()) combo
+
+	// construct lookup table for the datamap
+	var fill_lookup = {};
+	var data_lookup = {}
+	d3.csv("coverage.csv", function(error, data) {
+		if (error) {throw error};
+		console.log("reading completed");
+		for (var i=0; i<data.length; i++){
+			country = data[i].Country;
+			coverage = data[i].Coverage
+			code = data[i].Code
+			fill_lookup[country] = color(linear(Number(coverage)));
+			data_lookup[code] = {fillKey:country, numberOfThings: 1};
+		}
+
+		// show datamap
+		var map = new Datamap({
+		    element: document.getElementById('container'), 
+		    // responsive: true,
+		    // fills: {
+		    //     HIGH: '#afafaf',
+		    //     LOW: '#123456',
+		    //     MEDIUM: 'blue',
+		    //     UNKNOWN: 'rgb(0,0,0)',
+		    //     defaultFill: 'green'
+		    // },
+		    fills: fill_lookup,
+
+		    // data: {
+		    //     CHN: {
+		    //         fillKey: 'China',
+		    //         numberOfThings: 2002
+		    //     },
+		    //     USA: {
+		    //         fillKey: 'United States of America',
+		    //         numberOfThings: 10381
+		    //     }
+		    //
+		    data: data_lookup
+		});
+		// Draw a legend for this map
+		map.legend();
+	})
+
+</script>
