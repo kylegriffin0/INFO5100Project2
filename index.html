@@ -1,4 +1,5 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 <script src="/datamaps.world.min.js"></script>
 <div id="container" style="position: relative; width: 500px; height: 300px;"></div>
@@ -6,53 +7,153 @@
     var map = new Datamap({element: document.getElementById('container')});
 </script>
  -->
+
+<html>
+	<body>
+		<select id='mySelect' onchange="selectCategory();">>
+			<option value="coverage">health coverage</option>
+			<option value="HIV">HIV</option>
+			<option value="GDP">GDP</option>
+		</select>
+	</body>
+</html>
+
+
+
+
 <script>
+	// define colors and scales
 	var palegreen = d3.rgb(66,251,75);
 	var darkgreen = d3.rgb(2,100,7);
-	var color = d3.interpolate(palegreen,darkgreen);
-	var linear = d3.scale.linear().domain([30, 100]).range([0, 1]); // color(linear()) combo
+	var palered = '#FFFFFF';
+	var darkred = '#dc143c';
+	var paleblue = '#f0f8ff';
+	var darkblue = '#00008b';
 
-	// construct lookup table for the datamap
-	var fill_lookup = {};
-	var data_lookup = {}
-	d3.csv("coverage.csv", function(error, data) {
-		if (error) {throw error};
-		console.log("reading completed");
-		for (var i=0; i<data.length; i++){
-			country = data[i].Country;
-			coverage = data[i].Coverage
-			code = data[i].Code
-			fill_lookup[country] = color(linear(Number(coverage)));
-			data_lookup[code] = {fillKey:country, numberOfThings: 1};
-		}
+	var coverage_color = d3.interpolate(palegreen,darkgreen);
+	var coverage_linear = d3.scale.linear().domain([30, 100]).range([0, 1]); 
 
-		// show datamap
-		var map = new Datamap({
-		    element: document.getElementById('container'), 
-		    // responsive: true,
-		    // fills: {
-		    //     HIGH: '#afafaf',
-		    //     LOW: '#123456',
-		    //     MEDIUM: 'blue',
-		    //     UNKNOWN: 'rgb(0,0,0)',
-		    //     defaultFill: 'green'
-		    // },
-		    fills: fill_lookup,
+	var hiv_color =  d3.interpolate(palered,darkred);
+	var hiv_linear = d3.scale.linear().domain([0, 7100000]).range([0, 1]);
 
-		    // data: {
-		    //     CHN: {
-		    //         fillKey: 'China',
-		    //         numberOfThings: 2002
-		    //     },
-		    //     USA: {
-		    //         fillKey: 'United States of America',
-		    //         numberOfThings: 10381
-		    //     }
-		    //
-		    data: data_lookup
-		});
-		// Draw a legend for this map
-		map.legend();
-	})
+	var gdp_color =  d3.interpolate(paleblue,darkblue);
+	var gdp_linear = d3.scale.linear().domain([0, 101447]).range([0, 1]); // 1.82e13
+
+
+	// construct contencts for datamap wrapper
+	var coverage_fill = {};
+	var coverage_data = {};
+	var hiv_fill = {};
+	var gdp_fill = {};
+
+	// fulfill
+	function selectCategory() {
+		var x = document.getElementById("mySelect").value;
+		var fill;
+		if (x == 'coverage'){fill = coverage_fill}
+		else if(x == 'HIV'){fill = hiv_fill}
+		else if(x == 'GDP'){fill=gdp_fill}
+		showmap(0, fill);
+	}
+
+	
+
+	function showmap(ms, fill) {
+		d3.csv("raw.csv", function(error, data) {
+			if (error) {throw error};
+			for (var i=0; i<data.length; i++){
+				country = data[i].Country;
+				coverage = data[i].Coverage;
+				hiv = data[i].HIVPop;
+				gdp = data[i].GDPPC;
+				code = data[i].Code
+
+				coverage_fill[country] = coverage_color(coverage_linear(Number(coverage)));
+				hiv_fill[country] = hiv_color(hiv_linear(Number(hiv)));
+				gdp_fill[country] = gdp_color(gdp_linear(Number(gdp)));
+				coverage_data[code] = {fillKey:country, numberOfThings: 1};
+			}
+
+			// show datamap
+			var map = new Datamap({
+				element: document.getElementById('container'), 
+				fills: fill,
+				data: coverage_data
+			});
+		})
+
+		return new Promise((resolve, reject) => {
+			setTimeout(resolve, ms, 'done');
+	  	});
+	}
+
+	showmap(1000).then((value) => {
+	  console.log('coverage_fill');
+	});
+
+
+////////////////////////////////////////////////////////////////
+	// 	// show datamap
+	// 	var map = new Datamap({
+	// 		element: document.getElementById('container'), 
+	// 		// responsive: true,
+	// 		// fills: {
+	// 		//     HIGH: '#afafaf',
+	// 		//     LOW: '#123456',
+	// 		//     MEDIUM: 'blue',
+	// 		//     UNKNOWN: 'rgb(0,0,0)',
+	// 		//     defaultFill: 'green'
+	// 		// },
+	// 		fills: coverage_fill,
+
+	// 		// data: {
+	// 		//     CHN: {
+	// 		//         fillKey: 'China',
+	// 		//         numberOfThings: 2002
+	// 		//     },
+	// 		//     USA: {
+	// 		//         fillKey: 'United States of America',
+	// 		//         numberOfThings: 10381
+	// 		//     }
+	// 		//
+	// 		data: coverage_data
+	// 	});
+	// 	// Draw a legend for this map
+	// 	// map.legend();
+	// })
+
+///////////////////////////////////////////////////////////////
+	//!!!! failure try of queue and promise !!!!!!
+	// d3.queue().defer(d3.csv, "raw.csv").await(parse);
+	// setTimeout("alert('wulala')", 3000)
+	// console.log(coverage_fill)
+
+
+	// const promise = new Promise(function(resolve, reject) {
+	// 	d3.csv("raw.csv", function(error, data) {
+	// 		if (error) {throw error};
+	// 		parse(data);
+
+	// 		// show datamap
+	// 		var map = new Datamap({
+	// 			element: document.getElementById('container'), 
+	// 			fills: coverage_fill,
+	// 			data: coverage_data
+	// 		});
+	// 	})	
+	//   if (true){
+	//     resolve(1);
+	//   } else {
+	//     reject(0);
+	//   }
+	// });
+
+	// promise.then(function(value) {
+	// 	  console.log(coverage_fill);
+	// 	}, function(error) {
+	// 	  console.log('failure');
+	// 	});
 
 </script>
+
+
