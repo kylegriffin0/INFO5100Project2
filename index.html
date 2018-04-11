@@ -13,10 +13,10 @@
 
 <html>
 	<body>
-		<select size = 3 id='mySelect' onchange="selectCategory();">>
-			<option value="coverage">health coverage</option>
-			<option value="HIV">HIV population</option>
-			<option value="GDP">GDP per capita</option>
+		<select size=3 id='mySelect' onchange="selectCategory(this);">>
+			<option value="coverage">health</option>
+			<option value="HIV">HIV</option>
+			<option value="GDP">GDP</option>
 		</select>
 		<div id="container" style="position: absolute; left: 100px; top: 100px; width: 2000px; height: 1200px;"></div>
 		<div id='test' class="odometer" onclick=changeNum()> 0 </div>
