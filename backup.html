@@ -62,34 +62,21 @@
 				country = data[i].Country;
 				coverage = data[i].Coverage;
 				hiv = data[i].HIVPop;
-				gdp = Math.floor(data[i].GDPPC);
+				gdp = data[i].GDPPC;
 				code = data[i].Code
 
 				coverage_fill[country] = coverage_color(coverage_linear(Number(coverage)));
 				hiv_fill[country] = hiv_color(hiv_linear(Number(hiv)));
 				gdp_fill[country] = gdp_color(gdp_linear(Number(gdp)));
-				coverage_data[code] = {fillKey:country, coverage:coverage, hiv:hiv, gdp:gdp};
+				coverage_data[code] = {fillKey:country, numberOfThings: 1};
 			}
 			console.log(document.getElementById('container'));
-
 			// show datamap
 			var map = new Datamap({
 				element: document.getElementById('container'), 
 				fills: fill,
-				data: coverage_data,
-
-		        geographyConfig: {
-		            popupTemplate: function(geo, data) {
-		                return ['<div class="hoverinfo"><strong>',
-		                        'Number of things in ' + geo.properties.name,
-		                        ': ' + data.gdp + '<br>' + data.hiv,
-		                        '</strong></div>'].join('');
-		            }
-		        }
+				data: coverage_data
 			});
-
-
-			map.legend();
 		})
 	}
 
