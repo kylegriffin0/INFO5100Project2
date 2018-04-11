@@ -99,6 +99,9 @@
 
 		        geographyConfig: {
 		            popupTemplate: function(geo, data) {
+		            	console.log(data.gdp);
+		            	$('.odometer').html(data.gdp);
+
 		                return ['<div class="hoverinfo"><strong>',
 		                        'GDP: ' + geo.properties.name,
 		                        ': ' + data.gdp + '<br>' + data.hiv,
