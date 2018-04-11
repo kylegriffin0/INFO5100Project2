@@ -57,8 +57,9 @@
 	}
 
 	
-
 	function showmap(ms, fill) {
+		var s = d3.selectAll('svg');
+		s.remove();
 		d3.csv("raw.csv", function(error, data) {
 			if (error) {throw error};
 			for (var i=0; i<data.length; i++){
@@ -73,7 +74,7 @@
 				gdp_fill[country] = gdp_color(gdp_linear(Number(gdp)));
 				coverage_data[code] = {fillKey:country, numberOfThings: 1};
 			}
-
+			console.log(document.getElementById('container'));
 			// show datamap
 			var map = new Datamap({
 				element: document.getElementById('container'), 
@@ -88,7 +89,7 @@
 	}
 
 	showmap(1000).then((value) => {
-	  console.log('coverage_fill');
+	  console.log('coverage_data');
 	});
 
 
