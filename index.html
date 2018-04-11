@@ -1,22 +1,25 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://d3js.org/d3-queue.v3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 <script src="/datamaps.world.min.js"></script>
-<script src="jquery-3.3.1.min.js"></script>
+<!-- <script src="jquery-3.3.1.min.js"></script> -->
+<link rel="stylesheet" type="text/css" href="extra.css">
 <link rel="stylesheet" href="odometer-theme-car.css" />
 <script src="odometer.js"></script>
 
 
-<div id="container" style="position: absolute; left: 100px; top: 100px; width: 2000px; height: 1200px;"></div>
+
 
 <html>
 	<body>
-		<div id='test' class="odometer" onclick=changeNum()> 0 </div>
-		<select id='mySelect' onchange="selectCategory();">>
+		<select size = 3 id='mySelect' onchange="selectCategory();">>
 			<option value="coverage">health coverage</option>
-			<option value="HIV">HIV</option>
-			<option value="GDP">GDP</option>
+			<option value="HIV">HIV population</option>
+			<option value="GDP">GDP per capita</option>
 		</select>
+		<div id="container" style="position: absolute; left: 100px; top: 100px; width: 2000px; height: 1200px;"></div>
+		<div id='test' class="odometer" onclick=changeNum()> 0 </div>
 	</body>
 </html>
 
@@ -26,12 +29,13 @@
 <script>
 
 	function changeNum(){
-		test.innerHTML = 1234
+		test.innerHTML = Math.random();
 	}
 
 	var test = document.getElementById("test");
-	test.innerHTML = 000000 // Native, or...
-	// $('.odometer').html(124124) // with jQuery
+	// test.innerHTML = 000000 // Native, or...
+	$('.odometer').html(124124) // with jQuery
+	// $('.odometer').font-size(300px)
 
 	// define colors and scales
 	var palegreen = d3.rgb(66,251,75);
