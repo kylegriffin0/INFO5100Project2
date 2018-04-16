@@ -1,27 +1,35 @@
+<html>
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://d3js.org/d3-queue.v3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 <script src="/datamaps.world.min.js"></script>
 <!-- <script src="jquery-3.3.1.min.js"></script> -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="extra.css">
-<link rel="stylesheet" href="odometer-theme-car.css" />
+<link rel="stylesheet" href="odometer-theme-minimal.css" />
 <script src="odometer.js"></script>
+<style>
+* {
+   font-family:  Open Sans;
+}
+</style>
+<div id="legend" style="position: absolute; left: 800px; top: 25px; width: 300px; height: 150px; border: 1px solid #ccc;">
+	<div id="label-text" style="position:absolute; left: 50px; top: 20px; width:200px; height:30px;text-align:center; font-size:24px;"></div>
+	<div id="min-text" style="position:absolute; left: 50px; top: 75px; width:50px; height:30px; text-align:left;"></div>
+	<div id="max-text" style="position:absolute; left: 150px; top: 75px; width:100px; height:30px; text-align:right;"></div>
+</div>
 
+<body>
+	<select size=3 id='mySelect' onchange="selectCategory(this);">
+		<option value="coverage">health</option>
+		<option value="HIV">HIV</option>
+		<option value="GDP">GDP</option>
+	</select>
+	<div id="container" style="position: absolute; left: 100px; top: 100px; width: 1200px; height: 800px;"></div>
+	<div id='odometer1' class="odometer" style="font-size: 18px; position: absolute; left:1000px; top: 800px;"> 0 </div>
+</body>
 
-
-
-<html>
-	<body>
-		<select size=3 id='mySelect' onchange="selectCategory(this);">>
-			<option value="coverage">health</option>
-			<option value="HIV">HIV</option>
-			<option value="GDP">GDP</option>
-		</select>
-		<div id="container" style="position: absolute; left: 100px; top: 100px; width: 2000px; height: 1200px;"></div>
-		<div id='test' class="odometer" onclick=changeNum()> 0 </div>
-	</body>
-</html>
 
 
 
@@ -34,13 +42,13 @@
 
 	var test = document.getElementById("test");
 	// test.innerHTML = 000000 // Native, or...
-	$('.odometer').html(124124) // with jQuery
+	$('.odometer').html(12341234) // with jQuery
 	// $('.odometer').font-size(300px)
 
 	// define colors and scales
 	var palegreen = d3.rgb(66,251,75);
 	var darkgreen = d3.rgb(2,100,7);
-	var palered = '#FFFFFF';
+	var palered = '#ffe6e6';
 	var darkred = '#dc143c';
 	var paleblue = '#f0f8ff';
 	var darkblue = '#00008b';
@@ -54,7 +62,6 @@
 	var gdp_color =  d3.interpolate(paleblue,darkblue);
 	var gdp_linear = d3.scale.linear().domain([0, 101447]).range([0, 1]); // 1.82e13
 
-
 	// construct contencts for datamap wrapper
 	var coverage_fill = {};
 	var coverage_data = {};
@@ -65,18 +72,30 @@
 	function selectCategory() {
 		var x = document.getElementById("mySelect").value;
 		var fill;
-		if (x == 'coverage'){fill = coverage_fill}
-		else if(x == 'HIV'){fill = hiv_fill}
-		else if(x == 'GDP'){fill=gdp_fill}
-		showmap(0, fill);
+		if (x == 'coverage'){
+			fill = coverage_fill;
+			fill.type = 'coverage'
+		} else if(x == 'HIV'){
+			fill = hiv_fill;
+			fill.type = 'hiv'
+		} else if(x == 'GDP'){
+			fill = gdp_fill
+			fill.type = 'gdp'
+		}
+		showmap(100, fill);
 	}
 
-
 	function showmap(ms, fill) {
+		
+
 		var s = d3.selectAll('svg');
 		s.remove();
 		d3.csv("raw.csv", function(error, data) {
 			if (error) {throw error};
+
+			var mintext = document.getElementById("min-text");
+			var maxtext = document.getElementById("max-text");
+			console.log(data[0].Coverage);
 			for (var i=0; i<data.length; i++){
 				country = data[i].Country;
 				coverage = data[i].Coverage;
@@ -88,8 +107,10 @@
 				hiv_fill[country] = hiv_color(hiv_linear(Number(hiv)));
 				gdp_fill[country] = gdp_color(gdp_linear(Number(gdp)));
 				coverage_data[code] = {fillKey:country, coverage:coverage, hiv:hiv, gdp:gdp};
+
 			}
-			console.log(document.getElementById('container'));
+			initColorLegend();
+			colorLegend(data, fill);
 
 			// show datamap
 			var map = new Datamap({
@@ -99,7 +120,6 @@
 
 		        geographyConfig: {
 		            popupTemplate: function(geo, data) {
-		            	console.log(data.gdp);
 		            	$('.odometer').html(data.gdp);
 
 		                return ['<div class="hoverinfo"><strong>',
@@ -113,6 +133,41 @@
 
 			// map.legend();
 		})
+	}
+
+	function initColorLegend() {
+		var width = 20;
+		var height = 20;
+		for (var i = 0; i < 10; i++) {
+			var div = document.createElement("div")
+			div.setAttribute("id", "color" + i);
+			div.style.position = 'absolute';
+			div.style.width = width;
+			div.style.height = height;
+			div.style.left = 50 + i * width;
+			div.style.top = 100;
+
+			document.getElementById("legend").appendChild(div);
+			console.log(div);
+		}
+	}
+
+	function colorLegend(data, fill) {
+		var colorStr = fill.type + "_color";
+		var scaleStr = fill.type + "_linear"
+		var colorRange = window[colorStr];
+		var colorScale = window[scaleStr];
+		var colorLegend = [];
+		var colorInterval = ((colorScale.domain()[1] - colorScale.domain()[0]) / 10);
+		document.getElementById("min-text").innerHTML = colorScale.domain()[0];
+		document.getElementById("max-text").innerHTML = colorScale.domain()[1];
+		document.getElementById("label-text").innerHTML = fill.type.toUpperCase();
+		for (var i = 0; i < 10; i++) {
+			colorLegend[i] = document.getElementById("color" + i);
+			colorLegend[i].style.backgroundColor = (colorRange(colorScale((i + 1) * colorInterval)));
+		}
+
+		
 	}
 
 
@@ -181,5 +236,5 @@
 	// 	});
 
 </script>
-
+</html>
 
