@@ -7,7 +7,7 @@
 
 <html>
 	<body>
-		<select id='mySelect' onchange="selectCategory();">>
+		<select id='mySelect' onchange="selectCategory();">
 			<option value="coverage">health coverage</option>
 			<option value="HIV">HIV</option>
 			<option value="GDP">GDP</option>
@@ -72,7 +72,6 @@
 				gdp_fill[country] = gdp_color(gdp_linear(Number(gdp)));
 				coverage_data[code] = {fillKey:country, numberOfThings: 1};
 			}
-			console.log(document.getElementById('container'));
 			// show datamap
 			var map = new Datamap({
 				element: document.getElementById('container'), 

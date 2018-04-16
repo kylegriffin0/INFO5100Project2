@@ -14,20 +14,26 @@
    font-family:  Open Sans;
 }
 </style>
-<div id="legend" style="position: absolute; left: 800px; top: 25px; width: 300px; height: 150px; border: 1px solid #ccc;">
+<div id="legend" style="position: absolute; left: 950px; top: 25px; width: 300px; height: 150px; border: 1px solid #ccc;">
 	<div id="label-text" style="position:absolute; left: 50px; top: 20px; width:200px; height:30px;text-align:center; font-size:24px;"></div>
 	<div id="min-text" style="position:absolute; left: 50px; top: 75px; width:50px; height:30px; text-align:left;"></div>
 	<div id="max-text" style="position:absolute; left: 150px; top: 75px; width:100px; height:30px; text-align:right;"></div>
 </div>
 
+<div style="position: absolute; left: 400px; top: 25px; width: 700px; height: 150px; border: 0px solid #ccc; font-size: 40px">
+	<p class="title">yo man</p>
+</div>
+
 <body>
-	<select size=3 id='mySelect' onchange="selectCategory(this);">
-		<option value="coverage">health</option>
-		<option value="HIV">HIV</option>
-		<option value="GDP">GDP</option>
-	</select>
+	<div id="select" style="position: absolute; left: 50px; top: 25px; width: 300px; height: 150px; border: 0px solid #ccc; font-size: 50px">
+		<select size=3 style="font-size:30px" id='mySelect' onclick="selectCategory(this);">
+			<option id="init" value="coverage">health</option>
+			<option value="HIV">HIV</option>
+			<option value="GDP">GDP</option>
+		</select>
+	</div>
 	<div id="container" style="position: absolute; left: 100px; top: 100px; width: 1200px; height: 800px;"></div>
-	<div id='odometer1' class="odometer" style="font-size: 18px; position: absolute; left:1000px; top: 800px;"> 0 </div>
+	<div id='odometer1' class="odometer" style="font-size: 30px; position: absolute; left:1000px; top: 800px;"> 0 </div>
 </body>
 
 
@@ -35,15 +41,8 @@
 
 
 <script>
-
-	function changeNum(){
-		test.innerHTML = Math.random();
-	}
-
-	var test = document.getElementById("test");
-	// test.innerHTML = 000000 // Native, or...
-	$('.odometer').html(12341234) // with jQuery
-	// $('.odometer').font-size(300px)
+	// init odometer
+	$('.odometer').html(7777777) // with jQuery
 
 	// define colors and scales
 	var palegreen = d3.rgb(66,251,75);
@@ -63,31 +62,28 @@
 	var gdp_linear = d3.scale.linear().domain([0, 101447]).range([0, 1]); // 1.82e13
 
 	// construct contencts for datamap wrapper
-	var coverage_fill = {};
+	var coverage_fill = {'type':'coverage', 'name':'Healthcare Coverage'};
 	var coverage_data = {};
-	var hiv_fill = {};
-	var gdp_fill = {};
+	var hiv_fill = {'type':'hiv', 'name':'HIV Population'};
+	var gdp_fill = {'type':'gdp', 'name':'GDP per capita'};
 
-	// fulfill
+	// pass the select value to function
 	function selectCategory() {
 		var x = document.getElementById("mySelect").value;
 		var fill;
 		if (x == 'coverage'){
 			fill = coverage_fill;
-			fill.type = 'coverage'
 		} else if(x == 'HIV'){
 			fill = hiv_fill;
-			fill.type = 'hiv'
 		} else if(x == 'GDP'){
 			fill = gdp_fill
-			fill.type = 'gdp'
 		}
 		showmap(100, fill);
 	}
 
+	// fufill map
 	function showmap(ms, fill) {
-		
-
+		$('.title').html(fill.name) // with jQuery
 		var s = d3.selectAll('svg');
 		s.remove();
 		d3.csv("raw.csv", function(error, data) {
@@ -95,7 +91,7 @@
 
 			var mintext = document.getElementById("min-text");
 			var maxtext = document.getElementById("max-text");
-			console.log(data[0].Coverage);
+			// console.log(data[0].Coverage);
 			for (var i=0; i<data.length; i++){
 				country = data[i].Country;
 				coverage = data[i].Coverage;
@@ -120,21 +116,46 @@
 
 		        geographyConfig: {
 		            popupTemplate: function(geo, data) {
-		            	$('.odometer').html(data.gdp);
+		            	var score;
+		            	var hiv_component = data.hiv;
+		            	var gdp_component = data.gdp;
+		            	var coverage_component = data.coverage;
+		            	if (hiv_component=='-1'){
+		            		hiv_component = 0
+		            	}
+		            	else{
+		            		hiv_component = Number(data.hiv);
+		            	}
+		            	if (gdp_component == '-1'){
+		            		gdp_component = 0
+		            	}
+		            	else{
+		            		gdp_component = Number(data.gdp);
+		            	}
+		            	if (coverage_component == '-1'){
+		            		coverage_component = 0
+		            	}
+		            	else{
+		            		coverage_component = Number(data.coverage)
+		            	}
+
+
+
+		            	$('.odometer').html(hiv_component/);
 
 		                return ['<div class="hoverinfo"><strong>',
-		                        'GDP: ' + geo.properties.name,
-		                        ': ' + data.gdp + '<br>' + data.hiv,
+		                		data.fillKey + '<br>' + 
+		                        'Coverage: ' + data.coverage + '<br>' + 
+		                        'HIV popolation: ' + data.hiv + '<br>' + 
+		                        "GDP per capita: " + data.gdp + '<br>' + 
 		                        '</strong></div>'].join('');
 		            }
 		        }
 			});
-
-
-			// map.legend();
 		})
 	}
 
+	// legend
 	function initColorLegend() {
 		var width = 20;
 		var height = 20;
@@ -151,7 +172,6 @@
 			console.log(div);
 		}
 	}
-
 	function colorLegend(data, fill) {
 		var colorStr = fill.type + "_color";
 		var scaleStr = fill.type + "_linear"
@@ -170,7 +190,7 @@
 		
 	}
 
-
+	showmap(0, coverage_fill);
 
 
 ////////////////////////////////////////////////////////////////
