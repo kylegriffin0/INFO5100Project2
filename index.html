@@ -20,9 +20,14 @@
 	<div id="max-text" style="position:absolute; left: 150px; top: 75px; width:100px; height:30px; text-align:right;"></div>
 </div>
 
-<div style="position: absolute; left: 400px; top: 25px; width: 700px; height: 150px; border: 0px solid #ccc; font-size: 40px">
+<div style="position: absolute; left: 400px; top: 5px; width: 700px; height: 150px; border: 0px solid #ccc; font-size: 40px">
 	<p class="title">yo man</p>
 </div>
+
+<div style="position: absolute; left: 200px; top: 95px; width: 700px; height: 150px; border: 0px solid #ccc; font-size: 10px">
+	<p class="explain">Coverage of essential health services (defined as the average coverage of essential services based on tracer interventions that include reproductive, maternal, newborn and child health, infectious diseases, noncommunicable diseases and service capacity and access, among the general and the most disadvantaged population)</p>
+</div>
+
 
 <body>
 	<div id="select" style="position: absolute; left: 50px; top: 25px; width: 300px; height: 150px; border: 0px solid #ccc; font-size: 50px">
@@ -33,6 +38,19 @@
 		</select>
 	</div>
 	<div id="container" style="position: absolute; left: 100px; top: 100px; width: 1200px; height: 800px;"></div>
+
+
+	<div> 
+		<p style="position: absolute; left: 630px; top: 772px; width: 400px; height: 200px; border: 0px solid #ccc; font-size: 30px"> Aggregate Health Index: </p>
+
+	</div>
+
+	<div class="popup" onclick="myFunction()" style="position: absolute; left: 560px; top: 800px; width: 100px; height: 100px; border: 0px solid #ccc; font-size: 30px">
+		<img src="question_mark.png" alt="Smiley face" width="82" height="42">
+	  	<span class="popuptext" id="myPopup" >This is a customized score made by our team. We scaled the health coverage, the GDP and HIV Prevalence. Then use the formula Coverage+GDP-HIV to draw a score for each country.</span>
+	</div>
+
+
 	<div id='odometer1' class="odometer" style="font-size: 30px; position: absolute; left:1000px; top: 800px;"> 0 </div>
 </body>
 
@@ -41,6 +59,12 @@
 
 
 <script>
+
+	function myFunction() {
+	    var popup = document.getElementById("myPopup");
+	    popup.classList.toggle("show");
+	}
+
 	// init odometer
 	$('.odometer').html(7777777) // with jQuery
 
@@ -56,16 +80,16 @@
 	var coverage_linear = d3.scale.linear().domain([30, 100]).range([0, 1]); 
 
 	var hiv_color =  d3.interpolate(palered,darkred);
-	var hiv_linear = d3.scale.linear().domain([0, 7100000]).range([0, 1]);
+	var hiv_linear = d3.scale.linear().domain([0, 27]).range([0, 1]);
 
 	var gdp_color =  d3.interpolate(paleblue,darkblue);
 	var gdp_linear = d3.scale.linear().domain([0, 101447]).range([0, 1]); // 1.82e13
 
 	// construct contencts for datamap wrapper
-	var coverage_fill = {'type':'coverage', 'name':'Healthcare Coverage'};
+	var coverage_fill = {'type':'coverage', 'name':'Healthcare Coverage', 'explain':'Coverage of essential health services (defined as the average coverage of essential services based on tracer interventions that include reproductive, maternal, newborn and child health, infectious diseases, noncommunicable diseases and service capacity and access, among the general and the most disadvantaged population)'};
 	var coverage_data = {};
-	var hiv_fill = {'type':'hiv', 'name':'HIV Population'};
-	var gdp_fill = {'type':'gdp', 'name':'GDP per capita'};
+	var hiv_fill = {'type':'hiv', 'name':'HIV Population', 'explain':'The estimated number of adults aged 15-49 years with HIV infection, whether or not they have developed symptoms of AIDS, expressed as per cent of total population in that age group.'};
+	var gdp_fill = {'type':'gdp', 'name':'GDP per capita','explain':'the total value of all the goods and services produced in a country in a particular year, divided by the number of people living there'};
 
 	// pass the select value to function
 	function selectCategory() {
@@ -84,6 +108,7 @@
 	// fufill map
 	function showmap(ms, fill) {
 		$('.title').html(fill.name) // with jQuery
+		$('.explain').html(fill.explain) // with jQuery
 		var s = d3.selectAll('svg');
 		s.remove();
 		d3.csv("raw.csv", function(error, data) {
@@ -95,7 +120,7 @@
 			for (var i=0; i<data.length; i++){
 				country = data[i].Country;
 				coverage = data[i].Coverage;
-				hiv = data[i].HIVPop;
+				hiv = data[i].Prevalence;
 				gdp = Math.floor(data[i].GDPPC);
 				code = data[i].Code
 
@@ -120,34 +145,34 @@
 		            	var hiv_component = data.hiv;
 		            	var gdp_component = data.gdp;
 		            	var coverage_component = data.coverage;
-		            	// if (hiv_component=='-1'){
-		            	// 	hiv_component = 0
-		            	// }
-		            	// else{
-		            	// 	hiv_component = Number(data.hiv);
-		            	// }
-		            	// if (gdp_component == '-1'){
-		            	// 	gdp_component = 0
-		            	// }
-		            	// else{
-		            	// 	gdp_component = Number(data.gdp);
-		            	// }
-		            	// if (coverage_component == '-1'){
-		            	// 	coverage_component = 0
-		            	// }
-		            	// else{
-		            	// 	coverage_component = Number(data.coverage)
-		            	// }
+		            	if (hiv_component=='-1'){
+		            		hiv_component = 0
+		            	}
+		            	else{
+		            		hiv_component = Number(data.hiv)/27;
+		            	}
+		            	if (gdp_component == '-1'){
+		            		gdp_component = 0
+		            	}
+		            	else{
+		            		gdp_component = Number(data.gdp)/101447;
+		            	}
+		            	if (coverage_component == '-1'){
+		            		coverage_component = 0
+		            	}
+		            	else{
+		            		coverage_component = Number(data.coverage/100)
+		            	}
 
 
 
-		            	$('.odometer').html(hiv_component);
+		            	$('.odometer').html(coverage_component-hiv_component+gdp_component);
 
 		                return ['<div class="hoverinfo"><strong>',
 		                		data.fillKey + '<br>' + 
-		                        'Coverage: ' + data.coverage + '<br>' + 
-		                        'HIV popolation: ' + data.hiv + '<br>' + 
-		                        "GDP per capita: " + data.gdp + '<br>' + 
+		                        'Coverage index: ' + data.coverage + '<br>' + 
+		                        'HIV Prevalence: ' + data.hiv + '\%<br>' + 
+		                        "GDP per capita: " + '\$' + data.gdp + '<br>' + 
 		                        '</strong></div>'].join('');
 		            }
 		        }
@@ -191,70 +216,70 @@
 	}
 
 	showmap(0, coverage_fill);
-
-
-////////////////////////////////////////////////////////////////
-	// 	// show datamap
-	// 	var map = new Datamap({
-	// 		element: document.getElementById('container'), 
-	// 		// responsive: true,
-	// 		// fills: {
-	// 		//     HIGH: '#afafaf',
-	// 		//     LOW: '#123456',
-	// 		//     MEDIUM: 'blue',
-	// 		//     UNKNOWN: 'rgb(0,0,0)',
-	// 		//     defaultFill: 'green'
-	// 		// },
-	// 		fills: coverage_fill,
-
-	// 		// data: {
-	// 		//     CHN: {
-	// 		//         fillKey: 'China',
-	// 		//         numberOfThings: 2002
-	// 		//     },
-	// 		//     USA: {
-	// 		//         fillKey: 'United States of America',
-	// 		//         numberOfThings: 10381
-	// 		//     }
-	// 		//
-	// 		data: coverage_data
-	// 	});
-	// 	// Draw a legend for this map
-	// 	// map.legend();
-	// })
-
-///////////////////////////////////////////////////////////////
-	//!!!! failure try of queue and promise !!!!!!
-	// d3.queue().defer(d3.csv, "raw.csv").await(parse);
-	// setTimeout("alert('wulala')", 3000)
-	// console.log(coverage_fill)
-
-
-	// const promise = new Promise(function(resolve, reject) {
-	// 	d3.csv("raw.csv", function(error, data) {
-	// 		if (error) {throw error};
-	// 		parse(data);
-
-	// 		// show datamap
-	// 		var map = new Datamap({
-	// 			element: document.getElementById('container'), 
-	// 			fills: coverage_fill,
-	// 			data: coverage_data
-	// 		});
-	// 	})	
-	//   if (true){
-	//     resolve(1);
-	//   } else {
-	//     reject(0);
-	//   }
-	// });
-
-	// promise.then(function(value) {
-	// 	  console.log(coverage_fill);
-	// 	}, function(error) {
-	// 	  console.log('failure');
-	// 	});
-
 </script>
+
+
+<style>
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 400px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+    font-size: 10px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 0.5;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:0.5 ;}
+}
+</style>
+
+
+
 </html>
 
