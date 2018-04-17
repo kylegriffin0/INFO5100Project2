@@ -32,7 +32,7 @@
 <body>
 	<div id="select" style="position: absolute; left: 50px; top: 25px; width: 300px; height: 150px; border: 0px solid #ccc; font-size: 50px">
 		<select size=3 style="font-size:30px" id='mySelect' onclick="selectCategory(this);">
-			<option id="init" value="coverage">health</option>
+			<option id="init" value="coverage">Health</option>
 			<option value="HIV">HIV</option>
 			<option value="GDP">GDP</option>
 		</select>
@@ -88,7 +88,7 @@
 	var coverage_fill = {'type':'coverage', 'name':'Healthcare Coverage', 'explain':'Coverage of essential health services (defined as the average coverage of essential services based on tracer interventions that include reproductive, maternal, newborn and child health, infectious diseases, noncommunicable diseases and service capacity and access, among the general and the most disadvantaged population)'};
 	var coverage_data = {};
 	var hiv_fill = {'type':'hiv', 'name':'HIV Prevalence', 'explain':'The estimated number of adults aged 15-49 years with HIV infection, whether or not they have developed symptoms of AIDS, expressed as per cent of total population in that age group.'};
-	var gdp_fill = {'type':'gdp', 'name':'GDP per capita','explain':'the total value of all the goods and services produced in a country in a particular year, divided by the number of people living there'};
+	var gdp_fill = {'type':'gdp', 'name':'GDP per Capita','explain':'The total value of all the goods and services produced in a country in a particular year, divided by the number of people living there'};
 
 	// pass the select value to function
 	function selectCategory() {
