@@ -78,17 +78,16 @@
 
 	var coverage_color = d3.interpolate(palegreen,darkgreen);
 	var coverage_linear = d3.scale.linear().domain([30, 100]).range([0, 1]); 
-
 	var hiv_color =  d3.interpolate(palered,darkred);
 	var hiv_linear = d3.scale.linear().domain([0, 27]).range([0, 1]);
-
 	var gdp_color =  d3.interpolate(paleblue,darkblue);
-	var gdp_linear = d3.scale.linear().domain([0, 101447]).range([0, 1]); // 1.82e13
+	var gdp_linear = d3.scale.sqrt().domain([0, 105000]).range([0, 1]); 
+
 
 	// construct contencts for datamap wrapper
 	var coverage_fill = {'type':'coverage', 'name':'Healthcare Coverage', 'explain':'Coverage of essential health services (defined as the average coverage of essential services based on tracer interventions that include reproductive, maternal, newborn and child health, infectious diseases, noncommunicable diseases and service capacity and access, among the general and the most disadvantaged population)'};
 	var coverage_data = {};
-	var hiv_fill = {'type':'hiv', 'name':'HIV Population', 'explain':'The estimated number of adults aged 15-49 years with HIV infection, whether or not they have developed symptoms of AIDS, expressed as per cent of total population in that age group.'};
+	var hiv_fill = {'type':'hiv', 'name':'HIV Prevalence', 'explain':'The estimated number of adults aged 15-49 years with HIV infection, whether or not they have developed symptoms of AIDS, expressed as per cent of total population in that age group.'};
 	var gdp_fill = {'type':'gdp', 'name':'GDP per capita','explain':'the total value of all the goods and services produced in a country in a particular year, divided by the number of people living there'};
 
 	// pass the select value to function
@@ -177,8 +176,36 @@
 		            }
 		        }
 			});
+
+		//// bubbles for fugure usage
+			// var bombs = [{ 
+		 //        name: 'Joe 4',
+		 //        radius: 50,
+		 //        yield: 400,
+		 //        country: 'USSR',
+		 //        fillKey: 'RUS',
+		 //        significance: 'First fusion weapon test by the USSR (not "staged")',
+		 //        date: '1953-08-12',
+			// 	latitude: -26.19,
+			// 	longitude: 28.03,
+			// 	fillOpacity: 0.2
+			// }];
+			// //draw bubbles for bombs
+			// map.bubbles(bombs, {
+			//     popupTemplate: function (geo, data) {
+			//             return ['<div class="hoverinfo">' +  data.name,
+			//             '<br/>Payload: ' +  data.yield + ' kilotons',
+			//             '<br/>Country: ' +  data.country + '',
+			//             '<br/>Date: ' +  data.date + '',
+			//             '</div>'].join('');
+			//     }
+			// });
 		})
 	}
+
+
+
+
 
 	// legend
 	function initColorLegend() {
@@ -194,7 +221,7 @@
 			div.style.top = 100;
 
 			document.getElementById("legend").appendChild(div);
-			console.log(div);
+			// console.log(div);
 		}
 	}
 	function colorLegend(data, fill) {
